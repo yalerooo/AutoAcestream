@@ -1,0 +1,44 @@
+﻿<Window x:Class="TuNamespace.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ajustes de VLC" Height="150" Width="400">
+
+    <Window.Resources>
+        <Style x:Key="RoundButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                CornerRadius="20" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Ruta del programa VLC:" Margin="5" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
+            <TextBox x:Name="vlcPathInput" Width="250" />
+            <Button x:Name="browseButton" Margin="5,0,0,0" Width="30" Height="30" Background="Transparent" BorderBrush="Transparent">
+                <Image Source="https://winaero.com/blog/wp-content/uploads/2018/12/file-explorer-folder-libraries-icon-18298.png" />
+            </Button>
+        </StackPanel>
+
+        <Button Grid.Row="2" x:Name="saveButton" Content="Guardar" Margin="5" 
+                Background="#FFBEBE" BorderBrush="Transparent" Padding="10" 
+                Style="{StaticResource RoundButtonStyle}" />
+    </Grid>
+</Window>

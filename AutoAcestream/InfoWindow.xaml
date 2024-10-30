@@ -1,0 +1,17 @@
+﻿<Window x:Class="AceStreamPlayer.InfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Información" Height="200" Width="400"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TextBlock TextWrapping="Wrap" FontSize="14">
+            Para utilizar este programa, necesitas tener instalado VLC y Ace Stream y verificar si tienes la ruta del vlc bien puesta en los ajustes.
+            <LineBreak/>
+            Descargar:
+            <Hyperlink NavigateUri="https://www.videolan.org/vlc/" RequestNavigate="Hyperlink_RequestNavigate">VLC</Hyperlink>
+            y
+            <Hyperlink NavigateUri="https://download.acestream.media/products/acestream-full/win/latest" RequestNavigate="Hyperlink_RequestNavigate">Ace Stream</Hyperlink>.
+           
+        </TextBlock>
+    </Grid>
+</Window>
