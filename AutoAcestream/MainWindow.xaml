@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:AceStreamPlayer"
         Title="Auto Acestream" Height="450" Width="800"
-        Background="#F7F7F7">
+        Background="#121212">
     <Window.Resources>
-        <local:EmptyTextToVisibilityConverter x:Key="EmptyTextToVisibilityConverter"/>
+       
 
         <!-- Estilo para el TextBox de búsqueda -->
         <Style TargetType="TextBox" x:Key="RoundedTextBoxStyle">
@@ -64,9 +64,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Grid que contiene el TextBox de búsqueda y el ícono de búsqueda -->
         <Grid Margin="10" Grid.Row="0">
-            <Border CornerRadius="20" BorderBrush="#CCCCCC" BorderThickness="1" Background="#FFFFFF" Margin="0,0,66,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Grid que contiene el TextBox de búsqueda y el ícono de búsqueda -->
+            <Border Grid.Column="0" CornerRadius="20" BorderBrush="#CCCCCC" BorderThickness="1" Background="#FFFFFF" Margin="0,0,10,0">
                 <Grid Margin="0,0,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -76,52 +81,45 @@
                              Style="{StaticResource RoundedTextBoxStyle}"
                              TextChanged="SearchBox_TextChanged"
                              VerticalAlignment="Center"
-                             Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,-22,0"/>
+                             Grid.Column="0" Grid.ColumnSpan="2" Padding="10,10,10,10" Margin="0,0,-22,0"/>
                 </Grid>
             </Border>
 
             <!-- TextBlock como marcador de posición -->
-            <TextBlock Text="Buscar canal..."
-                       Visibility="{Binding Text, ElementName=searchBox, Converter={StaticResource EmptyTextToVisibilityConverter}}"
+            <TextBlock Grid.Column="0" Text=""
+                       
                        Margin="10,0,10,0"
                        VerticalAlignment="Center"
-                       Foreground="Gray"/>
-        </Grid>
+                       Foreground="Gray"
+                       IsHitTestVisible="False"
+                       HorizontalAlignment="Left"
+                       Visibility="Visible"
+                       />
 
-        <!-- StackPanel para el botón de Ajustes y la interrogación -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0" Margin="10,0,10,0">
-            <Button Name="settingsButton" Click="SettingsButton_Click" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent">
-                <Image Source="https://freeiconshop.com/wp-content/uploads/edd/settings-solid.png" Width="22" Height="46" RenderTransformOrigin="0.91,0.546" />
-            </Button>
-            <Image Source="https://img.icons8.com/material-outlined/24/000000/question-mark.png" 
-                   Width="24" Height="24" 
-                   Cursor="Hand" 
-                   MouseDown="QuestionIcon_MouseDown"
-                   ToolTip="Para utilizar este programa, necesitas tener instalado VLC y Ace Stream.\n\nDescargar VLC: https://www.videolan.org/vlc/\nDescargar Ace Stream: https://download.acestream.media/products/acestream-full/win/latest" />
-        </StackPanel>
+            <!-- StackPanel para el botón de Ajustes, Recargar Canales y la interrogación -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+                <Button Name="settingsButton" Click="SettingsButton_Click" Margin="5" Background="Transparent" BorderBrush="Transparent">
+                    <Image Source="https://img.icons8.com/m_rounded/200/FFFFFF/settings.png" Width="22" Height="22" />
+                </Button>
+
+                <Button x:Name="ReloadButton" Click="ReloadChannelsButton_Click" Margin="5" Background="Transparent" Foreground="Black">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="https://img.icons8.com/ios11/512/FFFFFF/refresh.png" Width="24" Height="24" Margin="0,0,5,0"/>
+                    </StackPanel>
+                </Button>
+
+                <Image Source="https://wikis.tid.es/gvp-public/images/thumb/9/9f/Infobox_info_icon_white.svg.png/600px-Infobox_info_icon_white.svg.png" 
+                       Width="24" Height="24" 
+                       Cursor="Hand" 
+                       MouseDown="QuestionIcon_MouseDown"
+                       ToolTip="Para utilizar este programa, necesitas tener instalado VLC y Ace Stream.&#x0A;&#x0A;Descargar VLC: https://www.videolan.org/vlc/&#x0A;Descargar Ace Stream: https://download.acestream.media/products/acestream-full/win/latest" />
+            </StackPanel>
+        </Grid>
 
         <!-- ScrollViewer para el panel de canales -->
         <ScrollViewer Margin="10" Grid.Row="1">
             <WrapPanel x:Name="channelsPanel">
-                <!-- Ejemplo de botones de canales -->
-                <Button Style="{StaticResource ChannelButtonStyle}">
-                    <StackPanel HorizontalAlignment="Center">
-                        <Image Source="icon1.png"/>
-                        <TextBlock Text="Canal 1" HorizontalAlignment="Center" FontSize="12"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource ChannelButtonStyle}">
-                    <StackPanel HorizontalAlignment="Center">
-                        <Image Source="icon2.png"/>
-                        <TextBlock Text="Canal 2" HorizontalAlignment="Center" FontSize="12"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource ChannelButtonStyle}">
-                    <StackPanel HorizontalAlignment="Center">
-                        <Image Source="icon3.png"/>
-                        <TextBlock Text="Canal 3" HorizontalAlignment="Center" FontSize="12"/>
-                    </StackPanel>
-                </Button>
+                
                 <!-- Agrega más botones de canales según sea necesario -->
             </WrapPanel>
         </ScrollViewer>

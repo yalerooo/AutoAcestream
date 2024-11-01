@@ -20,9 +20,10 @@ C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Debug\net8.0-windows
 C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Debug\net8.0-windows\AutoAcestream.pdb
 C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Debug\net8.0-windows\AutoAcestream.genruntimeconfig.cache
 C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Debug\net8.0-windows\ref\AutoAcestream.dll
-C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Debug\net8.0-windows\AutoAcestream_MarkupCompile.lref
 C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Debug\net8.0-windows\SettingsWindow.baml
 C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Debug\net8.0-windows\SettingsWindow.g.cs
 C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Debug\net8.0-windows\InfoWindow.baml
 C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Debug\net8.0-windows\InfoWindow.g.cs
+C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Debug\net8.0-windows\AutoAcestream.sourcelink.json
+C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\bin\Debug\net8.0-windows\AutoAcestream.dll.config

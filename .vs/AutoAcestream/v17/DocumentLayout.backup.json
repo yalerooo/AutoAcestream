@@ -7,20 +7,8 @@
       "RelativeMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|solutionrelative:autoacestream\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\infowindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|solutionrelative:autoacestream\\infowindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|solutionrelative:autoacestream\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|solutionrelative:autoacestream\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\infowindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|solutionrelative:autoacestream\\infowindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\settingswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -29,6 +17,26 @@
     {
       "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\settingswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|solutionrelative:autoacestream\\settingswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\properties\\settings.settings||{6D2695F9-5365-4A78-89ED-F205C045BFE6}",
+      "RelativeMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|solutionrelative:autoacestream\\properties\\settings.settings||{6D2695F9-5365-4A78-89ED-F205C045BFE6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\infowindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|solutionrelative:autoacestream\\infowindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\autoacestream.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|solutionrelative:autoacestream\\autoacestream.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\infowindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|solutionrelative:autoacestream\\infowindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|solutionrelative:autoacestream\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9363E8CA-7661-40CC-9230-466F16F392C2}|AutoAcestream\\AutoAcestream.csproj|c:\\users\\yaler\\source\\repos\\autoacestream\\autoacestream\\emptytexttovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,15 +54,43 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
+              "Title": "Settings.settings",
+              "DocumentMoniker": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\Properties\\Settings.settings",
+              "RelativeDocumentMoniker": "AutoAcestream\\Properties\\Settings.settings",
+              "ToolTip": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\Properties\\Settings.settings",
+              "RelativeToolTip": "AutoAcestream\\Properties\\Settings.settings",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002767|",
+              "WhenOpened": "2024-11-01T16:00:42.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AutoAcestream",
+              "DocumentMoniker": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\AutoAcestream.csproj",
+              "RelativeDocumentMoniker": "AutoAcestream\\AutoAcestream.csproj",
+              "ToolTip": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\AutoAcestream.csproj",
+              "RelativeToolTip": "AutoAcestream\\AutoAcestream.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-11-01T16:00:31.426Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "InfoWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\InfoWindow.xaml.cs",
               "RelativeDocumentMoniker": "AutoAcestream\\InfoWindow.xaml.cs",
@@ -67,7 +103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "InfoWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\InfoWindow.xaml",
               "RelativeDocumentMoniker": "AutoAcestream\\InfoWindow.xaml",
@@ -79,7 +115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "AssemblyInfo.cs",
               "DocumentMoniker": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "AutoAcestream\\AssemblyInfo.cs",
@@ -87,18 +123,17 @@
               "RelativeToolTip": "AutoAcestream\\AssemblyInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T22:10:56.462Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-30T22:10:56.462Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "AutoAcestream\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\MainWindow.xaml.cs",
               "RelativeToolTip": "AutoAcestream\\MainWindow.xaml.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAuwEUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAI4BAAAAAAAAAAAxwJoBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-30T21:59:21.949Z",
               "EditorCaption": ""
@@ -109,28 +144,28 @@
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\MainWindow.xaml",
               "RelativeDocumentMoniker": "AutoAcestream\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\MainWindow.xaml",
-              "RelativeToolTip": "AutoAcestream\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\MainWindow.xaml*",
+              "RelativeToolTip": "AutoAcestream\\MainWindow.xaml*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-10-30T21:58:17.626Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "SettingsWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\SettingsWindow.xaml.cs",
               "RelativeDocumentMoniker": "AutoAcestream\\SettingsWindow.xaml.cs",
               "ToolTip": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\SettingsWindow.xaml.cs",
               "RelativeToolTip": "AutoAcestream\\SettingsWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwEsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-30T21:55:14.695Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "SettingsWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\SettingsWindow.xaml",
               "RelativeDocumentMoniker": "AutoAcestream\\SettingsWindow.xaml",
@@ -142,20 +177,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AutoAcestream",
+              "DocumentIndex": 10,
+              "Title": "AutoAcestream.csproj",
               "DocumentMoniker": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\AutoAcestream.csproj",
               "RelativeDocumentMoniker": "AutoAcestream\\AutoAcestream.csproj",
               "ToolTip": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\AutoAcestream.csproj",
               "RelativeToolTip": "AutoAcestream\\AutoAcestream.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-10-30T20:39:57.914Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-30T20:39:57.914Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "EmptyTextToVisibilityConverter.cs",
               "DocumentMoniker": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\EmptyTextToVisibilityConverter.cs",
               "RelativeDocumentMoniker": "AutoAcestream\\EmptyTextToVisibilityConverter.cs",
@@ -163,8 +197,7 @@
               "RelativeToolTip": "AutoAcestream\\EmptyTextToVisibilityConverter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T20:40:21.784Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-30T20:40:21.784Z"
             }
           ]
         }

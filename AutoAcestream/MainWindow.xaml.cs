@@ -18,7 +18,10 @@ namespace AceStreamPlayer
         private List<Channel> channels = new List<Channel>();
         private List<Channel> filteredChannels = new List<Channel>(); // Nueva lista para los canales filtrados
         private const string ACE_BASE_URL = "http://127.0.0.1:6878/ace/getstream?id=";
-        private const string CHANNELS_URL = "https://raw.githubusercontent.com/yalerooo/listaparatv/refs/heads/main/lista2";
+        private bool useFirstUrl = true;
+        private string customUrl = "";
+        private const string DEFAULT_CHANNELS_URL = "https://actualsebastian.vercel.app/base.txt";
+        private const string DEFAULT_CHANNELS_URL2 = "https://raw.githubusercontent.com/yalerooo/listaparatv/refs/heads/main/lista2";
         private readonly HttpClient client = new HttpClient();
 
         private string vlcPath = @"C:\Program Files\VideoLAN\VLC\vlc.exe";
@@ -26,24 +29,62 @@ namespace AceStreamPlayer
         {
             InitializeComponent();
             CheckAceStream();
-            LoadChannelsFromUrl();
+            LoadSettings();
+            LoadChannels();
+           
         }
 
-        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        private void LoadSettings()
         {
-            var settingsWindow = new SettingsWindow(vlcPath);
-            if (settingsWindow.ShowDialog() == true)
+            vlcPath = AutoAcestream.Properties.Settings.Default.VlcPath;
+
+            // Verificar si vlcPath es null o una cadena vacía
+            if (string.IsNullOrEmpty(vlcPath))
             {
-                vlcPath = settingsWindow.VlcPath; // Actualizar la ruta de VLC
+                // Si vlcPath es nulo o vacío, usar la ruta por defecto
+                vlcPath = @"C:\Program Files\VideoLAN\VLC\vlc.exe"; // Ruta por defecto
             }
         }
 
-        private async void LoadChannelsFromUrl()
+
+
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var settingsWindow = new SettingsWindow(vlcPath, useFirstUrl, customUrl);
+            if (settingsWindow.ShowDialog() == true)
+            {
+                vlcPath = settingsWindow.VlcPath;
+                useFirstUrl = settingsWindow.UseFirstUrl;
+                customUrl = settingsWindow.CustomUrl;
+
+                // Recargar canales con la nueva configuración
+                LoadChannels();
+            }
+        }
+
+        private void LoadChannels()
+        {
+            channels.Clear();
+            LoadChannelsFromUrl(GetSelectedUrl());
+        }
+
+        private async void LoadChannelsFromUrl(string url)
         {
             try
             {
-                string content = await client.GetStringAsync(CHANNELS_URL);
-                ParseChannels(content);
+                string content = await client.GetStringAsync(url);
+
+                // Determinar qué método de parsing usar basado en la URL
+                if (url == DEFAULT_CHANNELS_URL)
+                {
+                    ParseChannels(content);
+                }
+                else
+                {
+                    ParseChannels2(content);
+                }
+
                 filteredChannels = new List<Channel>(channels);
                 RefreshChannelList();
             }
@@ -52,6 +93,25 @@ namespace AceStreamPlayer
                 MessageBox.Show($"Error al cargar canales: {ex.Message}");
             }
         }
+
+        private string GetSelectedUrl()
+        {
+            // Si hay una URL personalizada y está habilitada, úsala
+            if (!string.IsNullOrWhiteSpace(customUrl))
+            {
+                return customUrl;
+            }
+
+            // De lo contrario, usa la URL seleccionada
+            return useFirstUrl ? DEFAULT_CHANNELS_URL : DEFAULT_CHANNELS_URL2;
+        }
+
+        private void ReloadChannelsButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadChannels(); // Simplificar recarga de canales
+        }
+
+
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -89,6 +149,60 @@ namespace AceStreamPlayer
         }
 
         private void ParseChannels(string m3uContent)
+        {
+            channels.Clear();
+            var lines = m3uContent.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string name = null, aceId = null, imageUrl = null, groupTitle = null;
+
+            foreach (var line in lines)
+            {
+                if (line.StartsWith("#EXTINF"))
+                {
+                    // Extrae el nombre del canal
+                    var nameMatch = Regex.Match(line, @",(.*?)$");
+                    if (nameMatch.Success)
+                    {
+                        name = nameMatch.Groups[1].Value.Trim();
+                    }
+
+                    // Extrae la URL de la imagen
+                    var logoMatch = Regex.Match(line, @"tvg-logo=""([^""]*)""");
+                    if (logoMatch.Success)
+                    {
+                        imageUrl = logoMatch.Groups[1].Value.Trim();
+                    }
+
+                    // Extrae el grupo (opcional)
+                    var groupMatch = Regex.Match(line, @"group-title=""([^""]*)""");
+                    if (groupMatch.Success)
+                    {
+                        groupTitle = groupMatch.Groups[1].Value.Trim();
+                    }
+                }
+                else if (line.StartsWith("acestream://"))
+                {
+                    // Extrae el AceId
+                    aceId = line.Replace("acestream://", "").Trim();
+
+                    if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(aceId))
+                    {
+                        channels.Add(new Channel
+                        {
+                            Name = name,
+                            AceId = aceId,
+                            ImageUrl = imageUrl,
+                            GroupTitle = groupTitle // Añadir grupo si lo deseas
+                        });
+
+                        // Reiniciar variables
+                        name = aceId = imageUrl = groupTitle = null;
+                    }
+                }
+            }
+        }
+
+
+        private void ParseChannels2(string m3uContent)
         {
             channels.Clear();
             var lines = m3uContent.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -177,7 +291,7 @@ namespace AceStreamPlayer
                 TextAlignment = TextAlignment.Center,
                 Margin = new Thickness(5),
                 FontSize = 14, // Establece un tamaño de fuente fijo
-                Foreground = Brushes.Black,
+                Foreground = Brushes.White, // Cambia el color del texto aquí
                 TextWrapping = TextWrapping.Wrap, // Permite que el texto se ajuste en varias líneas
                 MaxWidth = 150 // Establece un ancho máximo para controlar el ajuste
             };
@@ -186,6 +300,7 @@ namespace AceStreamPlayer
             stackPanel.Children.Add(textBlock);
             channelsPanel.Children.Add(stackPanel);
         }
+
 
 
 
@@ -283,8 +398,16 @@ namespace AceStreamPlayer
     {
         public string Name { get; set; }
         public string AceId { get; set; }
-        public string ImageUrl { get; set; } // Nueva propiedad para la URL de la imagen
+        public string ImageUrl { get; set; }
+        public string GroupTitle { get; set; } // Nueva propiedad para el grupo
     }
+
+    /* Antiguo public class Channel
+    {
+        public string Name { get; set; }
+        public string AceId { get; set; }
+        public string ImageUrl { get; set; } // Nueva propiedad para la URL de la imagen
+    }*/
 
 
     public class AddChannelWindow : Window
@@ -331,6 +454,8 @@ namespace AceStreamPlayer
                     MessageBox.Show("Por favor, complete todos los campos.");
                 }
             };
+
+
 
             Grid.SetRow(nameLabel, 0);
             Grid.SetRow(nameInput, 1);

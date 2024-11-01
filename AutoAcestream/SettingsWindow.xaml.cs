@@ -1,46 +1,78 @@
-﻿using LibVLCSharp.Shared;
+﻿using System;
 using System.Windows;
-using Microsoft.Win32; // Para OpenFileDialog
+using Microsoft.Win32;
 
-namespace TuNamespace // Cambia esto por el espacio de nombres de tu proyecto
+namespace TuNamespace
 {
     public partial class SettingsWindow : Window
     {
+        // Propiedad para obtener la ruta de VLC desde el TextBox
         public string VlcPath => vlcPathInput.Text;
 
-        public SettingsWindow(string currentPath)
+        // Propiedades para manejar la selección de URL
+        public bool UseFirstUrl { get; private set; }
+        public string CustomUrl { get; private set; }
+
+        public SettingsWindow(string currentPath, bool currentUrlChoice, string currentCustomUrl = "")
         {
-            InitializeComponent(); // Inicializa los componentes de la interfaz
-            vlcPathInput.Text = currentPath; // Establece la ruta actual en el TextBox
+            InitializeComponent();
 
-            // Evento click para abrir el diálogo de selección de archivos
-            browseButton.Click += (s, e) =>
+            // Cargar configuraciones existentes
+            vlcPathInput.Text = currentPath;
+            radioUrl1.IsChecked = currentUrlChoice;
+            radioUrl2.IsChecked = !currentUrlChoice;
+            customUrlInput.Text = currentCustomUrl;
+        }
+
+        // Método para el botón Examinar
+        private void browseButton_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
             {
-                var openFileDialog = new OpenFileDialog
-                {
-                    Title = "Seleccionar VLC",
-                    Filter = "Ejecutables (*.exe)|*.exe", // Filtrar solo archivos ejecutables
-                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) // Abrir en la carpeta de Program Files por defecto
-                };
-
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    vlcPathInput.Text = openFileDialog.FileName; // Establecer la ruta en el TextBox
-                }
+                Title = "Seleccionar VLC",
+                Filter = "Ejecutables (*.exe)|*.exe",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)
             };
 
-            // Evento click para el botón de guardar
-            saveButton.Click += (s, e) =>
+            if (openFileDialog.ShowDialog() == true)
             {
-                if (!string.IsNullOrWhiteSpace(VlcPath))
+                vlcPathInput.Text = openFileDialog.FileName;
+            }
+        }
+
+        // Método para el botón Guardar
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(VlcPath))
+            {
+                // Guardar la configuración de la ruta de VLC
+                AutoAcestream.Properties.Settings.Default.VlcPath = VlcPath;
+
+                // Guardar la selección de URL
+                UseFirstUrl = radioUrl1.IsChecked == true;
+
+                // Solo asignar CustomUrl si el segundo radio button está seleccionado
+                if (!UseFirstUrl)
                 {
-                    DialogResult = true; // Cerrar la ventana con resultado exitoso
+                    CustomUrl = customUrlInput.Text.Trim();
+                    AutoAcestream.Properties.Settings.Default.CustomUrl = CustomUrl;
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, ingresa una ruta válida."); // Mostrar mensaje de error
+                    AutoAcestream.Properties.Settings.Default.CustomUrl = ""; // Limpiar si se usa el primer URL
                 }
-            };
+
+                // Guardar cambios en la configuración
+                AutoAcestream.Properties.Settings.Default.Save();
+
+                DialogResult = true;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Por favor, ingresa una ruta válida.");
+            }
         }
+
     }
 }
