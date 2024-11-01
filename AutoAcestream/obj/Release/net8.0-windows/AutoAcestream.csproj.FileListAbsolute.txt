@@ -26,3 +26,6 @@ C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Release\net8.0-windo
 C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Release\net8.0-windows\AutoAcestream.pdb
 C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Release\net8.0-windows\AutoAcestream.genruntimeconfig.cache
 C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Release\net8.0-windows\ref\AutoAcestream.dll
+C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\bin\Release\net8.0-windows\AutoAcestream.dll.config
+C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Release\net8.0-windows\AutoAcestream.sourcelink.json
+C:\Users\Yaler\source\repos\AutoAcestream\AutoAcestream\obj\Release\net8.0-windows\AutoAcestream_Content.g.cs

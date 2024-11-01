@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoAcestream")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1afae313b8d015ff9df3bde5f777c06d10a45d49")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+29c737afb186630bb5e2329cdd6fdac2e2400ee8")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoAcestream")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoAcestream")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
