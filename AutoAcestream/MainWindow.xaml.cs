@@ -1,5 +1,7 @@
-﻿using System;
+﻿using LibVLCSharp.Shared;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text.RegularExpressions;
@@ -10,28 +12,31 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TuNamespace;
-
+using System.IO;
 namespace AceStreamPlayer
 {
     public partial class MainWindow : Window
     {
         private List<Channel> channels = new List<Channel>();
-        private List<Channel> filteredChannels = new List<Channel>(); // Nueva lista para los canales filtrados
+        private ObservableCollection<Channel> filteredChannels = new ObservableCollection<Channel>(); // Nueva lista para los canales filtrados
         private const string ACE_BASE_URL = "http://127.0.0.1:6878/ace/getstream?id=";
         private bool useFirstUrl = true;
         private string customUrl = "";
         private const string DEFAULT_CHANNELS_URL = "https://actualsebastian.vercel.app/base.txt";
         private const string DEFAULT_CHANNELS_URL2 = "https://raw.githubusercontent.com/yalerooo/listaparatv/refs/heads/main/lista2";
-        private readonly HttpClient client = new HttpClient();
+        private static readonly HttpClient client = new HttpClient();
+        private LibVLC _libVLC;
+        private System.Windows.Media.MediaPlayer _mediaPlayer;
 
         private string vlcPath = @"C:\Program Files\VideoLAN\VLC\vlc.exe";
         public MainWindow()
         {
             InitializeComponent();
+
             CheckAceStream();
             LoadSettings();
             LoadChannels();
-           
+
         }
 
         private void LoadSettings()
@@ -63,29 +68,20 @@ namespace AceStreamPlayer
             }
         }
 
-        private void LoadChannels()
+        private async void LoadChannels()
         {
             channels.Clear();
-            LoadChannelsFromUrl(GetSelectedUrl());
+            await LoadChannelsFromUrl(GetSelectedUrl());
         }
 
-        private async void LoadChannelsFromUrl(string url)
+
+        private async Task LoadChannelsFromUrl(string url)
         {
             try
             {
-                string content = await client.GetStringAsync(url);
-
-                // Determinar qué método de parsing usar basado en la URL
-                if (url == DEFAULT_CHANNELS_URL)
-                {
-                    ParseChannels(content);
-                }
-                else
-                {
-                    ParseChannels2(content);
-                }
-
-                filteredChannels = new List<Channel>(channels);
+                var response = await client.GetStringAsync(url);
+                ParseChannels(response, url == DEFAULT_CHANNELS_URL);
+                filteredChannels = new ObservableCollection<Channel>(channels);
                 RefreshChannelList();
             }
             catch (Exception ex)
@@ -93,6 +89,8 @@ namespace AceStreamPlayer
                 MessageBox.Show($"Error al cargar canales: {ex.Message}");
             }
         }
+
+
 
         private string GetSelectedUrl()
         {
@@ -116,9 +114,8 @@ namespace AceStreamPlayer
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchText = searchBox.Text.ToLower();
-            filteredChannels = channels
-                .Where(channel => channel.Name.ToLower().Contains(searchText))
-                .ToList();
+            filteredChannels = new ObservableCollection<Channel>(
+    channels.Where(channel => channel.Name.ToLower().Contains(searchText)));
             RefreshChannelList();
         }
 
@@ -137,9 +134,8 @@ namespace AceStreamPlayer
 
             if (!string.IsNullOrEmpty(searchText))
             {
-                filteredChannels = channels
-                    .Where(channel => channel.Name.ToLower().Contains(searchText.ToLower()))
-                    .ToList();
+                filteredChannels = new ObservableCollection<Channel>(
+    channels.Where(channel => channel.Name.ToLower().Contains(searchText.ToLower())));
                 RefreshChannelList();
             }
             else
@@ -148,61 +144,7 @@ namespace AceStreamPlayer
             }
         }
 
-        private void ParseChannels(string m3uContent)
-        {
-            channels.Clear();
-            var lines = m3uContent.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            string name = null, aceId = null, imageUrl = null, groupTitle = null;
-
-            foreach (var line in lines)
-            {
-                if (line.StartsWith("#EXTINF"))
-                {
-                    // Extrae el nombre del canal
-                    var nameMatch = Regex.Match(line, @",(.*?)$");
-                    if (nameMatch.Success)
-                    {
-                        name = nameMatch.Groups[1].Value.Trim();
-                    }
-
-                    // Extrae la URL de la imagen
-                    var logoMatch = Regex.Match(line, @"tvg-logo=""([^""]*)""");
-                    if (logoMatch.Success)
-                    {
-                        imageUrl = logoMatch.Groups[1].Value.Trim();
-                    }
-
-                    // Extrae el grupo (opcional)
-                    var groupMatch = Regex.Match(line, @"group-title=""([^""]*)""");
-                    if (groupMatch.Success)
-                    {
-                        groupTitle = groupMatch.Groups[1].Value.Trim();
-                    }
-                }
-                else if (line.StartsWith("acestream://"))
-                {
-                    // Extrae el AceId
-                    aceId = line.Replace("acestream://", "").Trim();
-
-                    if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(aceId))
-                    {
-                        channels.Add(new Channel
-                        {
-                            Name = name,
-                            AceId = aceId,
-                            ImageUrl = imageUrl,
-                            GroupTitle = groupTitle // Añadir grupo si lo deseas
-                        });
-
-                        // Reiniciar variables
-                        name = aceId = imageUrl = groupTitle = null;
-                    }
-                }
-            }
-        }
-
-
-        private void ParseChannels2(string m3uContent)
+        private void ParseChannels(string m3uContent, bool isFirstSource)
         {
             channels.Clear();
             var lines = m3uContent.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -212,56 +154,40 @@ namespace AceStreamPlayer
             {
                 if (line.StartsWith("#EXTINF"))
                 {
-                    // Extrae el nombre del canal
-                    var nameMatch = Regex.Match(line, @"tvg-id=""[^""]*"",\s*(.*)");
-                    if (nameMatch.Success)
-                    {
-                        name = nameMatch.Groups[1].Value.Trim();
-                    }
+                    // Extraer nombre y logo para ambas fuentes
+                    var nameMatch = Regex.Match(line, isFirstSource ? @",(.*?)$" : @"tvg-id=""[^""]*"",\s*(.*)");
+                    if (nameMatch.Success) name = nameMatch.Groups[1].Value.Trim();
 
-                    // Extrae la URL de la imagen
                     var logoMatch = Regex.Match(line, @"tvg-logo=""([^""]*)""");
-                    if (logoMatch.Success)
-                    {
-                        imageUrl = logoMatch.Groups[1].Value.Trim();
-                    }
+                    if (logoMatch.Success) imageUrl = logoMatch.Groups[1].Value.Trim();
                 }
-                else if (line.StartsWith("http"))
+                else if (line.StartsWith("acestream://") || line.StartsWith("http"))
                 {
-                    // Extrae el AceId desde la URL
                     var aceIdMatch = Regex.Match(line, @"id=([a-fA-F0-9]+)");
-                    if (aceIdMatch.Success)
+                    aceId = line.StartsWith("acestream://") ? line.Replace("acestream://", "").Trim() :
+                            (aceIdMatch.Success ? aceIdMatch.Groups[1].Value : null);
+
+                    if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(aceId))
                     {
-                        aceId = aceIdMatch.Groups[1].Value;
-                        if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(aceId))
-                        {
-                            channels.Add(new Channel { Name = name, AceId = aceId, ImageUrl = imageUrl });
-                            name = aceId = imageUrl = null;
-                        }
+                        channels.Add(new Channel { Name = name, AceId = aceId, ImageUrl = imageUrl });
+                        name = aceId = imageUrl = null;
                     }
                 }
             }
         }
+
 
 
         private void RefreshChannelList()
         {
             channelsPanel.Children.Clear();
             foreach (var channel in filteredChannels)
-            {
-                AddChannelToPanel(channel);
-            }
+                channelsPanel.Children.Add(CreateChannelUI(channel));
         }
 
-        private void AddChannelToPanel(Channel channel)
-        {
-            // Verificar que la URL de la imagen sea válida
-            if (string.IsNullOrEmpty(channel.ImageUrl))
-            {
-                // Puedes establecer una imagen por defecto o manejar este caso de otra manera
-                channel.ImageUrl = "https://static.thenounproject.com/png/4595376-200.png"; // Cambia esto por una ruta válida
-            }
 
+        private StackPanel CreateChannelUI(Channel channel)
+        {
             var stackPanel = new StackPanel
             {
                 Orientation = Orientation.Vertical,
@@ -271,17 +197,14 @@ namespace AceStreamPlayer
 
             var image = new Image
             {
-                Width = 150, // Ancho del cuadrado
-                Height = 150, // Alto del cuadrado
+                Width = 150,
+                Height = 150,
                 Margin = new Thickness(5),
-                Source = new BitmapImage(new Uri(channel.ImageUrl, UriKind.Absolute)),
-                Cursor = Cursors.Hand, // Cambia el cursor a una mano al pasar por encima
-                Stretch = Stretch.Fill // Estira la imagen para llenar el área asignada
+                Source = new BitmapImage(new Uri(channel.ImageUrl ?? "https://static.thenounproject.com/png/4595376-200.png")),
+                Cursor = Cursors.Hand,
+                Stretch = Stretch.Fill,
+                Clip = new RectangleGeometry(new Rect(0, 0, 150, 150), 20, 20)
             };
-
-            // Establecer el recorte de la imagen para que tenga esquinas redondeadas
-            var geometry = new RectangleGeometry(new Rect(0, 0, image.Width, image.Height), 20, 20); // Ajusta el radio para redondear las esquinas
-            image.Clip = geometry;
 
             image.MouseDown += (s, e) => PlayInVLC(channel.AceId);
 
@@ -289,21 +212,15 @@ namespace AceStreamPlayer
             {
                 Text = channel.Name,
                 TextAlignment = TextAlignment.Center,
-                Margin = new Thickness(5),
-                FontSize = 14, // Establece un tamaño de fuente fijo
-                Foreground = Brushes.White, // Cambia el color del texto aquí
-                TextWrapping = TextWrapping.Wrap, // Permite que el texto se ajuste en varias líneas
-                MaxWidth = 150 // Establece un ancho máximo para controlar el ajuste
+                FontSize = 14,
+                Foreground = Brushes.White,
+                MaxWidth = 150
             };
 
-            stackPanel.Children.Add(image); // Añadir la imagen directamente al panel
+            stackPanel.Children.Add(image);
             stackPanel.Children.Add(textBlock);
-            channelsPanel.Children.Add(stackPanel);
+            return stackPanel;
         }
-
-
-
-
 
 
         private void CheckAceStream()
@@ -353,30 +270,16 @@ namespace AceStreamPlayer
 
         private void PlayInVLC(string aceId)
         {
-            try
+            if (!IsAceStreamRunning())
             {
-                if (!IsAceStreamRunning())
-                {
-                    MessageBox.Show("Por favor, inicie Acestream primero.");
-                    return;
-                }
-
-                string fullUrl = $"{ACE_BASE_URL}{aceId}";
-
-                ProcessStartInfo startInfo = new ProcessStartInfo
-                {
-                    FileName = vlcPath, // Utilizar la ruta de VLC actualizada
-                    Arguments = fullUrl,
-                    UseShellExecute = false
-                };
-
-                Process.Start(startInfo);
+                MessageBox.Show("Inicie Acestream.");
+                return;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al reproducir: {ex.Message}");
-            }
+
+            Process.Start(new ProcessStartInfo(vlcPath, $"{ACE_BASE_URL}{aceId}"));
         }
+
+
 
         private void AddChannel_Click(object sender, RoutedEventArgs e)
         {
@@ -388,88 +291,86 @@ namespace AceStreamPlayer
                     Name = inputWindow.ChannelName,
                     AceId = inputWindow.AceId
                 };
+
                 channels.Add(newChannel);
-                AddChannelToPanel(newChannel);
+
+                // Usa el nuevo método para crear la UI del canal y añadirlo al panel
+                var channelUI = CreateChannelUI(newChannel);
+                channelsPanel.Children.Add(channelUI);
             }
         }
-    }
-
-    public class Channel
-    {
-        public string Name { get; set; }
-        public string AceId { get; set; }
-        public string ImageUrl { get; set; }
-        public string GroupTitle { get; set; } // Nueva propiedad para el grupo
-    }
-
-    /* Antiguo public class Channel
-    {
-        public string Name { get; set; }
-        public string AceId { get; set; }
-        public string ImageUrl { get; set; } // Nueva propiedad para la URL de la imagen
-    }*/
 
 
-    public class AddChannelWindow : Window
-    {
-        private TextBox nameInput;
-        private TextBox idInput;
-
-        public string ChannelName => nameInput.Text;
-        public string AceId => idInput.Text;
-
-        public AddChannelWindow()
+        public class Channel
         {
-            Title = "Añadir Canal";
-            Width = 300;
-            Height = 200;
+            public string Name { get; set; }
+            public string AceId { get; set; }
+            public string ImageUrl { get; set; }
+            public string GroupTitle { get; set; } // Nueva propiedad para el grupo
+        }
 
-            var grid = new Grid();
-            for (int i = 0; i < 5; i++)
+
+        public class AddChannelWindow : Window
+        {
+            private TextBox nameInput;
+            private TextBox idInput;
+
+            public string ChannelName => nameInput.Text;
+            public string AceId => idInput.Text;
+
+            public AddChannelWindow()
             {
-                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                Title = "Añadir Canal";
+                Width = 300;
+                Height = 200;
+
+                var grid = new Grid();
+                for (int i = 0; i < 5; i++)
+                {
+                    grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                }
+
+                var nameLabel = new Label { Content = "Nombre del Canal:" };
+                nameInput = new TextBox { Margin = new Thickness(5) };
+
+                var idLabel = new Label { Content = "ID de Acestream:" };
+                idInput = new TextBox { Margin = new Thickness(5) };
+
+                var addButton = new Button
+                {
+                    Content = "Añadir",
+                    Margin = new Thickness(5),
+                    Padding = new Thickness(10)
+                };
+
+                addButton.Click += (s, e) =>
+                {
+                    if (!string.IsNullOrWhiteSpace(ChannelName) && !string.IsNullOrWhiteSpace(AceId))
+                    {
+                        DialogResult = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Por favor, complete todos los campos.");
+                    }
+                };
+
+
+
+                Grid.SetRow(nameLabel, 0);
+                Grid.SetRow(nameInput, 1);
+                Grid.SetRow(idLabel, 2);
+                Grid.SetRow(idInput, 3);
+                Grid.SetRow(addButton, 4);
+
+                grid.Children.Add(nameLabel);
+                grid.Children.Add(nameInput);
+                grid.Children.Add(idLabel);
+                grid.Children.Add(idInput);
+                grid.Children.Add(addButton);
+
+                Content = grid;
             }
-
-            var nameLabel = new Label { Content = "Nombre del Canal:" };
-            nameInput = new TextBox { Margin = new Thickness(5) };
-
-            var idLabel = new Label { Content = "ID de Acestream:" };
-            idInput = new TextBox { Margin = new Thickness(5) };
-
-            var addButton = new Button
-            {
-                Content = "Añadir",
-                Margin = new Thickness(5),
-                Padding = new Thickness(10)
-            };
-
-            addButton.Click += (s, e) =>
-            {
-                if (!string.IsNullOrWhiteSpace(ChannelName) && !string.IsNullOrWhiteSpace(AceId))
-                {
-                    DialogResult = true;
-                }
-                else
-                {
-                    MessageBox.Show("Por favor, complete todos los campos.");
-                }
-            };
-
-
-
-            Grid.SetRow(nameLabel, 0);
-            Grid.SetRow(nameInput, 1);
-            Grid.SetRow(idLabel, 2);
-            Grid.SetRow(idInput, 3);
-            Grid.SetRow(addButton, 4);
-
-            grid.Children.Add(nameLabel);
-            grid.Children.Add(nameInput);
-            grid.Children.Add(idLabel);
-            grid.Children.Add(idInput);
-            grid.Children.Add(addButton);
-
-            Content = grid;
         }
     }
 }

@@ -15,6 +15,25 @@
           }
         }
       },
+      "LibVLCSharp.WPF/3.9.0": {
+        "type": "package",
+        "dependencies": {
+          "LibVLCSharp": "3.9.0"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/LibVLCSharp.WPF.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/LibVLCSharp.WPF.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
       "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
@@ -872,6 +891,25 @@
         "lib/xamarinmac20/LibVLCSharp.xml",
         "libvlcsharp.3.9.0.nupkg.sha512",
         "libvlcsharp.nuspec"
+      ]
+    },
+    "LibVLCSharp.WPF/3.9.0": {
+      "sha512": "pBOfuPmuZHwPEmjco0cpzDNEQXod3ASt3RpLRE/JV5/E6/9tQu5jsMeTe6hG1KzBiiAAp7nnVbZQt3DOPBqMCA==",
+      "type": "package",
+      "path": "libvlcsharp.wpf/3.9.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net461/LibVLCSharp.WPF.dll",
+        "lib/net461/LibVLCSharp.WPF.xml",
+        "lib/net6.0-windows7.0/LibVLCSharp.WPF.dll",
+        "lib/net6.0-windows7.0/LibVLCSharp.WPF.xml",
+        "lib/netcoreapp3.1/LibVLCSharp.WPF.dll",
+        "lib/netcoreapp3.1/LibVLCSharp.WPF.xml",
+        "libvlcsharp.wpf.3.9.0.nupkg.sha512",
+        "libvlcsharp.wpf.nuspec"
       ]
     },
     "Microsoft.NETCore.Platforms/1.1.1": {
@@ -2937,6 +2975,7 @@
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
       "LibVLCSharp >= 3.9.0",
+      "LibVLCSharp.WPF >= 3.9.0",
       "System.Net.Http >= 4.3.4"
     ]
   },
@@ -2990,6 +3029,10 @@
         "targetAlias": "net8.0-windows",
         "dependencies": {
           "LibVLCSharp": {
+            "target": "Package",
+            "version": "[3.9.0, )"
+          },
+          "LibVLCSharp.WPF": {
             "target": "Package",
             "version": "[3.9.0, )"
           },

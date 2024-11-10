@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[3.9.0, )"
             },
+            "LibVLCSharp.WPF": {
+              "target": "Package",
+              "version": "[3.9.0, )"
+            },
             "System.Net.Http": {
               "target": "Package",
               "version": "[4.3.4, )"

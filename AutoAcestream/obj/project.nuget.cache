@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "WU0d6nFhXnI=",
+  "dgSpecHash": "rXiB9nfiX1s=",
   "success": true,
   "projectFilePath": "C:\\Users\\Yaler\\source\\repos\\AutoAcestream\\AutoAcestream\\AutoAcestream.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yaler\\.nuget\\packages\\libvlcsharp\\3.9.0\\libvlcsharp.3.9.0.nupkg.sha512",
+    "C:\\Users\\Yaler\\.nuget\\packages\\libvlcsharp.wpf\\3.9.0\\libvlcsharp.wpf.3.9.0.nupkg.sha512",
     "C:\\Users\\Yaler\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.1\\microsoft.netcore.platforms.1.1.1.nupkg.sha512",
     "C:\\Users\\Yaler\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Yaler\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",

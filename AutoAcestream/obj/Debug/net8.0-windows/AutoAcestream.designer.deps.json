@@ -14,6 +14,17 @@
           }
         }
       },
+      "LibVLCSharp.WPF/3.9.0": {
+        "dependencies": {
+          "LibVLCSharp": "3.9.0"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/LibVLCSharp.WPF.dll": {
+            "assemblyVersion": "3.9.0.0",
+            "fileVersion": "3.9.0.0"
+          }
+        }
+      },
       "Microsoft.NETCore.Platforms/1.1.1": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
@@ -663,6 +674,13 @@
       "sha512": "sha512-wydvN5kotK5y/ZRC04/F6YUqesJCzdixaItRkR8L0/nOLSs2/BJ7rKRbU7BxkxpKIBqlN8EpuXxH/fQEZEHtuw==",
       "path": "libvlcsharp/3.9.0",
       "hashPath": "libvlcsharp.3.9.0.nupkg.sha512"
+    },
+    "LibVLCSharp.WPF/3.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pBOfuPmuZHwPEmjco0cpzDNEQXod3ASt3RpLRE/JV5/E6/9tQu5jsMeTe6hG1KzBiiAAp7nnVbZQt3DOPBqMCA==",
+      "path": "libvlcsharp.wpf/3.9.0",
+      "hashPath": "libvlcsharp.wpf.3.9.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.1": {
       "type": "package",

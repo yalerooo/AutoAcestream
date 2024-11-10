@@ -58,5 +58,17 @@ namespace AutoAcestream.Properties {
                 this["CustomUrl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string IptvUrl {
+            get {
+                return ((string)(this["IptvUrl"]));
+            }
+            set {
+                this["IptvUrl"] = value;
+            }
+        }
     }
 }
